@@ -97,9 +97,7 @@ Before running this project, ensure you have:
 ```
 DS_Airflow_St/
 ├── dags/                   # Airflow DAG files
-│   ├── data_ingestion.py
-│   ├── data_processing.py
-│   └── ml_pipeline.py
+│   ├── amazon_books_etl_v2.py
 ├── plugins/                # Custom Airflow plugins
 ├── config/                 # Configuration files
 ├── scripts/                # Utility scripts
@@ -142,28 +140,6 @@ Key configuration settings in `airflow.cfg`:
 - Applies business logic
 - Generates processed datasets
 
-### ML Pipeline DAG
-- Trains machine learning models
-- Evaluates model performance
-- Deploys models to production
-
-## 🧪 Testing
-
-Run unit tests:
-```bash
-python -m pytest tests/
-```
-
-Run DAG validation:
-```bash
-python dags/your_dag.py
-```
-
-## 📈 Monitoring
-
-- **Airflow UI**: Monitor DAG runs, task status, and logs
-- **Alerts**: Configure email/Slack notifications for failures
-- **Metrics**: Track pipeline performance and SLA compliance
 
 ## 📚 Resources
 
