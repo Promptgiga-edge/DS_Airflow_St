@@ -1,20 +1,30 @@
 # DS_Airflow_St
 
-A Data Science pipeline orchestration project using Apache Airflow for automated data processing, analysis, and workflow management.
+This Airflow DAG (amazon_books_etl_v2) implements an ETL (Extract, Transform, Load) pipeline that scrapes data engineering books from Amazon and stores the information in a PostgreSQL database. The pipeline runs daily and includes robust error handling, rate limiting, and duplicate detection.
 
 ## 📋 Overview
 
 This repository contains Apache Airflow DAGs (Directed Acyclic Graphs) and related configurations for managing data science workflows. The project aims to automate data ingestion, processing, analysis, and reporting tasks in a scalable and maintainable way.
 
-## 🚀 Features
+## 🚀 Architecture
+The DAG consists of three main tasks:
 
-- **Automated Data Pipelines**: Orchestrated data workflows using Apache Airflow
-- **Data Processing**: ETL/ELT operations for data transformation
-- **Scheduling**: Time-based and dependency-based task scheduling
-- **Monitoring**: Built-in monitoring and alerting capabilities
-- **Scalability**: Distributed task execution support
-- **Error Handling**: Robust error handling and retry mechanisms
+- create_books_table: Creates the PostgreSQL table if it doesn't exist
+- fetch_book_data: Scrapes Amazon for book information
+- insert_book_data: Inserts/updates book data in the database
 
+  
+``` SQL
+CREATE TABLE books (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL UNIQUE,
+    authors TEXT,
+    price TEXT,
+    rating TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 ## 🛠️ Prerequisites
 
 Before running this project, ensure you have:
@@ -22,35 +32,19 @@ Before running this project, ensure you have:
 - Python 3.12.2
 - Apache Airflow 3.0.2
 - Docker (for containerized deployment)
+- PostgreSQL 
 - Required Python packages (see `requirements.txt`)
 
 ## 📦 Installation
 
 ### Local Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Promptgiga-edge/DS_Airflow_St.git
-   cd DS_Airflow_St
-   ```
-
-2. **Create virtual environment**
-   ```bash
-   python -m venv airflow_env
-   source airflow_env/bin/activate  # On Windows: airflow_env\Scripts\activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Initialize Airflow database**
+1. **Initialize Airflow database**
    ```bash
    airflow db init
    ```
 
-5. **Create admin user**
+2.. **Create admin user**
    ```bash
    airflow users create \
      --username admin \
@@ -60,7 +54,7 @@ Before running this project, ensure you have:
      --email admin@example.com
    ```
 
-### Docker Setup (Alternative)
+### Docker Setup
 
 1. **Build and run with Docker Compose**
    ```bash
