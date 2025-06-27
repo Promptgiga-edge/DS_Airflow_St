@@ -13,18 +13,6 @@ The DAG consists of three main tasks:
 - fetch_book_data: Scrapes Amazon for book information
 - insert_book_data: Inserts/updates book data in the database
 
-  
-``` SQL
-CREATE TABLE books (
-    id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL UNIQUE,
-    authors TEXT,
-    price TEXT,
-    rating TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
 ## 🛠️ Prerequisites
 
 Before running this project, ensure you have:
